@@ -6,3 +6,7 @@ async function SignUp(req: Request, res: Response ) {
     await authService.signUp(body)
     return res.status(201).send("created")
 }
+
+export const authController = {
+    SignUp
+}
