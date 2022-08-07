@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  email     String   @unique
+  password  String
+  photo     String
+  admin     Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  sessions     Session[]
+  publications Publication[]
+  comments     Comment[]
+  likes        Like[]
+
+  @@map("users")
+}
+
+model Session {
+  id        Int      @id @default(autoincrement())
+  token     String
+  userId    Int
+  acessedAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("sessions")
+}
+
+model Publication {
+  id          Int      @id @default(autoincrement())
+  url         String
+  userId      Int
+  description String
+  createdAt   DateTime @default(now())
+
+  comments Comment[]
+  likes    Like[]
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("publications")
+}
+
+model Comment {
+  id            Int      @id @default(autoincrement())
+  userId        Int
+  publicationId Int
+  comment       String
+  username      String
+  createdAt     DateTime @default(now())
+
+  publications Publication @relation(fields: [publicationId], references: [id])
+  user         User        @relation(fields: [userId], references: [id])
+
+  @@map("comments")
+}
+
+model Like {
+  id            Int      @id @default(autoincrement())
+  publicationId Int
+  userId        Int
+  username      String
+  createdAt     DateTime @default(now())
+
+  publications Publication @relation(fields: [publicationId], references: [id])
+  user         User        @relation(fields: [userId], references: [id])
+
+  @@map("likes")
+}
