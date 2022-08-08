@@ -8,7 +8,7 @@ async function signUp(body: UserData) {
 
     if (email || username) throw {type: "conflict", message: "this user has already exist", code: 409}
 
-    if (body.password !== body.passwordConfirmation) throw {type: "invalid_input", message: "invalid password confirmation", number: 422}
+    if (body.password !== body.passwordConfirmation) throw {type: "invalid_input", message: "invalid password confirmation", code: 422}
 
     const passwordHashed = bcrypt.hashSync(body.password, 10)
 
@@ -16,8 +16,7 @@ async function signUp(body: UserData) {
         username: body.username,
         email: body.email,
         password: passwordHashed,
-        photo: body.photo,
-        admin: body.admin
+        photo: body.photo
     })
 }
 

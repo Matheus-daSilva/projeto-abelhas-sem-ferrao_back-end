@@ -8,5 +8,5 @@ async function SignUp(req: Request, res: Response ) {
 }
 
 export const authController = {
-    SignUp
+    SignUp,
 }

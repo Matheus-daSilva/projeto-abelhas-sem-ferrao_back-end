@@ -7,7 +7,6 @@ export interface UserData {
     password: string;
     passwordConfirmation?: string
     photo: string;
-    admin: boolean;
 }
 
 async function findEmail(email: string) {
