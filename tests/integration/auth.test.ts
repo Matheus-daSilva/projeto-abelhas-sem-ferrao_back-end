@@ -47,4 +47,28 @@ describe("POST /signin", () => {
         expect(respo2.body).not.toBeNull()
         expect(respo2.statusCode).toBe(201)
     })
+
+    it("trying to authenticate with a wrong passoword", async () => {
+        const respo = await supertest(app).post("/signup").send(user)
+        expect(respo.statusCode).toBe(201)
+
+        const respo2 = await supertest(app).post("/signin").send({email: user.email, password: "1234567890"})
+        expect(respo2.statusCode).toBe(401)
+    })
+
+    it("trying to authenticate with a wrong schema", async () => {
+        const respo = await supertest(app).post("/signup").send(user)
+        expect(respo.statusCode).toBe(201)
+
+        const respo2 = await supertest(app).post("/signin").send({email: user.email, password: "12345"})
+        expect(respo2.statusCode).toBe(422)
+    })
+
+    it("trying to authenticate with an user that does not exist", async () => {
+        const respo = await supertest(app).post("/signup").send(user)
+        expect(respo.statusCode).toBe(201)
+
+        const respo2 = await supertest(app).post("/signin").send({email: "ana@gmail.com", password: "1234567890"})
+        expect(respo2.statusCode).toBe(404)
+    })
 })
