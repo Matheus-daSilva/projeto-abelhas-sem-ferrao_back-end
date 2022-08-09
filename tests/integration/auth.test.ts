@@ -1,6 +1,6 @@
-import prisma from "../../src/config/database"
+import prisma from "../../src/config/database.js"
 import supertest from "supertest"
-import app from "../../src/app"
+import app from "../../src/app.js"
 
 const user = {
     username: "jhonas",
@@ -11,7 +11,7 @@ const user = {
 }
 
 beforeEach(async () => {
-    await prisma.$executeRaw`TRUNCATE TABLE users;`
+    await prisma.$executeRaw`TRUNCATE TABLE users CASCADE;`
 })
 
 describe("POST /signup", () => {
@@ -34,5 +34,17 @@ describe("POST /signup", () => {
 
         const respo = await supertest(app).post("/signup").send(user2)
         expect(respo.statusCode).toBe(422)
+    })
+})
+
+describe("POST /signin", () => {
+
+    it("should be authenticated", async () => {
+        const respo = await supertest(app).post("/signup").send(user)
+        expect(respo.statusCode).toBe(201)
+
+        const respo2 = await supertest(app).post("/signin").send({email: user.email, password: user.password})
+        expect(respo2.body).not.toBeNull()
+        expect(respo2.statusCode).toBe(201)
     })
 })

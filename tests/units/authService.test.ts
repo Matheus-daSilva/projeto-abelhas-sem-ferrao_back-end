@@ -21,7 +21,9 @@ describe("POST /signup", () => {
 
         jest.spyOn(authRepository, "findEmail").mockResolvedValueOnce(null)
         jest.spyOn(authRepository, "findUsername").mockResolvedValueOnce(null)
-        jest.spyOn(authRepository, "insertUser").mockImplementationOnce(async (): any => {})
+        jest.spyOn(authRepository, "insertUser").mockImplementationOnce((): any => {
+            return null
+        })
 
         await authService.signUp(user)
         expect(authRepository.insertUser).toBeCalled()
