@@ -2,6 +2,7 @@ import { jest } from "@jest/globals"
 import { faker } from "@faker-js/faker"
 import { authService } from "../../src/service/authService";
 import { authRepository } from "../../src/repositories/authRepository";
+import tokenProvider from "../../src/utils/tokenProvider.js";
 
 describe("POST /signup", () => {
 
@@ -29,4 +30,22 @@ describe("POST /signup", () => {
         expect(authRepository.insertUser).toBeCalled()
     })
 })
+
+// describe("POST /signin", () => {
+
+//     beforeEach(() => {
+//         jest.resetAllMocks();
+//         jest.clearAllMocks();
+//     })
+
+//     it("should authenticate an user", async () => {
+//         const user = {
+//             email: "jhonas@gmail.com",
+//             password: "12345abcde"
+//         }
+
+//         jest.spyOn(authRepository, "findEmail").mockResolvedValueOnce(null)
+//         jest.spyOn(tokenProvider, "tokenProvider")
+//     })
+// })
 
