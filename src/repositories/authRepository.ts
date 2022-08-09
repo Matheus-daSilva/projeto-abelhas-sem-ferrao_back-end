@@ -1,5 +1,7 @@
 import prisma from "../config/database.js";
 import { User } from "@prisma/client";
+import { type } from "os";
+import { Session } from "inspector";
 
 export interface UserData {
     username: string;
@@ -27,8 +29,15 @@ async function insertUser(infos: UserData) {
     })
 }
 
+async function createAccess(token: string, userId: number) {
+    return await prisma.session.create({
+        data: {token, userId}
+    })
+}
+
 export const authRepository = {
     findEmail,
     findUsername,
-    insertUser
+    insertUser,
+    createAccess,
 }

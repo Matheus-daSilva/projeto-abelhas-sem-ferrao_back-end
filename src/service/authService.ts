@@ -1,5 +1,12 @@
 import bcrypt from "bcrypt"
+import { stringify } from "querystring";
 import { authRepository, UserData } from "../repositories/authRepository.js";
+import tokenProvider from "../utils/tokenProvider.js";
+
+interface Login{
+    email: string;
+    password: string;
+}
 
 
 async function signUp(body: UserData) {
@@ -20,6 +27,22 @@ async function signUp(body: UserData) {
     })
 }
 
+async function signIn(body: Login) {
+    const respo = await authRepository.findEmail(body.email)
+
+    if(!respo) throw {type: "not_found", message: "this user dos not exist", code: 404}
+
+    if(!bcrypt.compareSync(body.password, respo.password)) throw {type: "unauthorized", message: "unauthorized request", code: 401}
+
+    const token = await tokenProvider(body.email)
+    const userId = Number(respo.id)
+
+    await authRepository.createAccess(token, userId)
+
+    return token
+}
+
 export const authService = {
     signUp,
+    signIn,
 }
