@@ -16,4 +16,6 @@ export async function tokenValidation(req: Request, res: Response, next: NextFun
     const session = await publicationRepository.getSession(token)
 
     res.locals.user = session.userId
+
+    next()
 }

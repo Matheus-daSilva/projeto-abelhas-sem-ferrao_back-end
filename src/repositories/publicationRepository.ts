@@ -9,8 +9,10 @@ async function getSession(token: string) {
     })
 }
 
-async function insertPublication() {
-
+async function insertPublication(body: PublicationData) {
+    return await prisma.publication.create({
+        data: body
+    })
 }
 
 export const publicationRepository = {
