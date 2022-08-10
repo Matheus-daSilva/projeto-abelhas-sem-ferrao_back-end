@@ -15,7 +15,31 @@ async function insertPublication(body: PublicationData) {
     })
 }
 
+async function getAllPublications() {
+    return await prisma.publication.findMany({
+        select: {
+            id: true,
+            url: true,
+            userId: true,
+            description: true,
+            likes: {select: {
+                id: true,
+                userId: true,
+                username: true,
+                publicationId: true
+            }},
+            comments: {select: {
+                id: true,
+                userId: true,
+                comment: true,
+                username: true
+            }}
+        }
+    })
+}
+
 export const publicationRepository = {
     getSession,
     insertPublication,
+    getAllPublications,
 }

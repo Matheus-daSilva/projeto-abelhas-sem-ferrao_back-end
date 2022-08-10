@@ -9,6 +9,12 @@ async function PostPublication(req: Request, res: Response) {
     return res.status(201).send("created")
 }
 
+async function GetPublications(req: Request, res: Response) {
+    const respo = await publicationService.getPublications()
+    return res.status(200).send(respo)
+}
+
 export const publicationController = {
     PostPublication,
+    GetPublications,
 }
