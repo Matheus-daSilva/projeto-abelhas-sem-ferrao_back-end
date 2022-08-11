@@ -9,6 +9,12 @@ async function getSession(token: string) {
     })
 }
 
+async function getById(id: number) {
+    return await prisma.publication.findUnique({
+        where: {id}
+    })
+}
+
 async function insertPublication(body: PublicationData) {
     return await prisma.publication.create({
         data: body
@@ -38,8 +44,16 @@ async function getAllPublications() {
     })
 }
 
+async function deletePublication(id: number) {
+    return await prisma.publication.delete({
+        where: {id}
+    })
+}
+
 export const publicationRepository = {
     getSession,
+    getById,
     insertPublication,
     getAllPublications,
+    deletePublication,
 }

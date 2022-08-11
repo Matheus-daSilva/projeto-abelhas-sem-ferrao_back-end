@@ -6,5 +6,6 @@ const publicationRoute = express.Router()
 
 publicationRoute.post("/publications", tokenValidation, publicationController.PostPublication)
 publicationRoute.get("/publications", tokenValidation, publicationController.GetPublications)
+publicationRoute.delete("/publications/:id", tokenValidation, publicationController.DeletePublication)
 
 export default publicationRoute
