@@ -50,10 +50,18 @@ async function deletePublication(id: number) {
     })
 }
 
+async function updatePublication(id: number, description: string) {
+    return await prisma.publication.update({
+        where: {id},
+        data: {description: description}
+    })
+}
+
 export const publicationRepository = {
     getSession,
     getById,
     insertPublication,
     getAllPublications,
     deletePublication,
+    updatePublication,
 }

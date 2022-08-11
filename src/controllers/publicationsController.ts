@@ -21,8 +21,17 @@ async function DeletePublication(req: Request, res: Response) {
     return res.status(200).send(respo)
 }
 
+async function PutPublication(req: Request, res: Response) {
+    const { id } = req.params
+    const { description } = req.body
+    const userId = res.locals.user
+    const respo = await publicationService.putPublication(Number(id), Number(userId), description)
+    return res.status(200).send(respo)
+}
+
 export const publicationController = {
     PostPublication,
     GetPublications,
     DeletePublication,
+    PutPublication,
 }
