@@ -1,7 +1,6 @@
 import bcrypt from "bcrypt"
-import { stringify } from "querystring";
-import { authRepository, UserData } from "../repositories/authRepository.js";
-import tokenProvider from "../utils/tokenProvider.js";
+import { authRepository, UserData } from "../repositories/authRepository.js"
+import tokenProvider from "../utils/tokenProvider.js"
 
 interface Login{
     email: string;
