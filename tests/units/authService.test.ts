@@ -1,8 +1,7 @@
 import { jest } from "@jest/globals"
 import { faker } from "@faker-js/faker"
-import { authService } from "../../src/service/authService";
-import { authRepository } from "../../src/repositories/authRepository";
-import tokenProvider from "../../src/utils/tokenProvider.js";
+import { authService } from "../../src/service/authService"
+import { authRepository } from "../../src/repositories/authRepository"
 
 describe("POST /signup", () => {
 
