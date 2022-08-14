@@ -1,4 +1,3 @@
-import prisma from "../../src/config/database.js"
 import { UserData } from "../../src/repositories/authRepository.js"
 import { authService } from "../../src/service/authService.js"
 

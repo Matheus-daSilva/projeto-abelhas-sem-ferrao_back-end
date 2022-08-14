@@ -2,6 +2,7 @@ import prisma from "../../src/config/database.js"
 import supertest from "supertest"
 import app from "../../src/app.js"
 import { createUserFactory } from "../factories/userFactory.js"
+import { postPublications } from "../factories/publicationsFactory.js"
 
 const publication = {
     description: "vídeo do youtube"
@@ -42,4 +43,30 @@ describe("POST /publication", () => {
         const respo2 = await supertest(app).post("/publications").set('Authorization', `Bearer ${respo}`).send({...publication, publication: 1})
         expect(respo2.statusCode).toBe(422)
     })
+})
+
+describe("GET /publications", () => {
+
+    it("this route should get the publications", async () => {
+        const respo = await createUserFactory(user)
+        const respo2 = await postPublications(respo)
+
+        const respo3 = await supertest(app).get("/publications").set('Authorization', `Bearer ${respo}`)
+        expect(respo3.body).not.toBeNull()
+    })
+})
+
+describe("DELETE /publications", () => {
+
+    it("this rout shoul delete a publication", async () => {
+        const respo = await createUserFactory(user)
+        const respo2 = await postPublications(respo)
+
+        const respo3 = await supertest(app).delete(`/publications/${respo2.id}`).set('Authorization', `Bearer ${respo}`)
+        expect(respo3.statusCode).toBe(200)
+
+        const respo4 = await supertest(app).get("/publications").set('Authorization', `Bearer ${respo}`)
+        expect(respo4.body).toHaveLength(0)
+    })
+
 })
