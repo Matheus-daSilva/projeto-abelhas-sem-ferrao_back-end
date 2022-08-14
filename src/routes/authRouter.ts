@@ -1,10 +1,12 @@
 import express from "express"
 import { authController } from "../controllers/authController.js"
-import { signInMiddleware, signUpMiddleware } from "../middlewares/authMiddleware.js"
+import { schemasValidation } from "../middlewares/schemasMiddleware.js"
+import { signInSchema, signUpSchema } from "../schemas/userSchema.js"
+
 
 const authRoute = express.Router()
 
-authRoute.post("/signup", signUpMiddleware, authController.SignUp)
-authRoute.post("/signin", signInMiddleware, authController.SignIn)
+authRoute.post("/signup", schemasValidation(signUpSchema), authController.SignUp)
+authRoute.post("/signin", schemasValidation(signInSchema), authController.SignIn)
 
 export default authRoute
