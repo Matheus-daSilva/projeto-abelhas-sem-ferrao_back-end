@@ -1,9 +1,18 @@
 import { CommentData, commentsRepository } from "../repositories/commentsRepository.js"
+import { likesRepository } from "../repositories/likesRepository.js"
+
+interface CommentInfos {
+    userId: number,
+    publicationId: number,
+    comment: string
+}
 
 
-async function postComment(body: CommentData) {
-    const respo = await commentsRepository.insertComment(body)
-    return respo
+async function postComment(body: CommentInfos) {
+    const respo = await likesRepository.findUser(body.userId)
+
+    const respo2 = await commentsRepository.insertComment({...body, username: respo.username})
+    return respo2
 }
 
 async function deleteComment(id: number, userId: number) {
