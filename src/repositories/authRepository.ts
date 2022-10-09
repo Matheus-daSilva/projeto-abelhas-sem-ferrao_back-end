@@ -7,20 +7,7 @@ export interface UserData {
     username: string;
     email: string;
     password: string;
-    passwordConfirmation?: string
-    photo: string;
-}
-
-async function findEmail(email: string) {
-    return await prisma.user.findUnique({
-        where: {email}
-    })
-}
-
-async function findUsername(username: string) {
-    return await prisma.user.findUnique({
-        where: {username}
-    })
+    passwordConfirmation?: string;
 }
  
 async function insertUser(infos: UserData) {
@@ -36,8 +23,6 @@ async function createAccess(token: string, userId: number) {
 }
 
 export const authRepository = {
-    findEmail,
-    findUsername,
     insertUser,
     createAccess,
 }

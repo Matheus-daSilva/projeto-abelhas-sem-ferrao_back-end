@@ -1,4 +1,5 @@
 import { likesRepository } from "../repositories/likesRepository.js"
+import { userRepository } from "../repositories/userRepository.js"
 
 async function checkLike(publicationId: number, userId: number) {
     return await likesRepository.getLike(publicationId, userId)
@@ -9,7 +10,7 @@ async function deleteLike(id: number) {
 }
 
 async function addLike(publicationId: number, userId: number) {
-    const respo = await likesRepository.findUser(userId)
+    const respo = await userRepository.findUser(userId)
     const respo2 = await checkLike(publicationId, userId)
 
     if(respo2) {

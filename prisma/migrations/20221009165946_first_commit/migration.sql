@@ -4,7 +4,6 @@ CREATE TABLE "users" (
     "username" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "photo" TEXT NOT NULL,
     "admin" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -16,7 +15,7 @@ CREATE TABLE "sessions" (
     "id" SERIAL NOT NULL,
     "token" TEXT NOT NULL,
     "userId" INTEGER NOT NULL,
-    "acessedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "accessedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "sessions_pkey" PRIMARY KEY ("id")
 );
@@ -24,7 +23,7 @@ CREATE TABLE "sessions" (
 -- CreateTable
 CREATE TABLE "publications" (
     "id" SERIAL NOT NULL,
-    "url" TEXT NOT NULL,
+    "url" TEXT,
     "userId" INTEGER NOT NULL,
     "description" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,

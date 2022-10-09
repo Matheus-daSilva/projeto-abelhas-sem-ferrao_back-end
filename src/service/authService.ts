@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt"
 import { authRepository, UserData } from "../repositories/authRepository.js"
+import { userRepository } from "../repositories/userRepository.js";
 import tokenProvider from "../utils/tokenProvider.js"
 
 interface Login{
@@ -9,8 +10,8 @@ interface Login{
 
 
 async function signUp(body: UserData) {
-    const email = await authRepository.findEmail(body.email)
-    const username = await authRepository.findUsername(body.username)
+    const email = await userRepository.findEmail(body.email)
+    const username = await userRepository.findUsername(body.username)
 
     if (email || username) throw {type: "conflict", message: "this user has already exist", code: 409}
 
@@ -21,13 +22,12 @@ async function signUp(body: UserData) {
     return await authRepository.insertUser({
         username: body.username,
         email: body.email,
-        password: passwordHashed,
-        photo: body.photo
+        password: passwordHashed
     })
 }
 
 async function signIn(body: Login) {
-    const respo = await authRepository.findEmail(body.email)
+    const respo = await userRepository.findEmail(body.email)
 
     if(!respo) throw {type: "not_found", message: "this user dos not exist", code: 404}
 

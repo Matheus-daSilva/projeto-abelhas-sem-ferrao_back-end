@@ -3,12 +3,6 @@ import prisma from "../config/database.js"
 
 export type LikeData = Omit<Like, "id" | "createdAt">
 
-async function findUser(id: number) {
-    return prisma.user.findUnique({
-        where: {id}
-    })
-}
-
 async function getLike(publicationId: number, userId: number) {
     return await prisma.like.findFirst({
         where: {
@@ -33,6 +27,5 @@ async function insetLike(data: LikeData) {
 export const likesRepository = {
     getLike,
     deleteLike,
-    insetLike, 
-    findUser,  
+    insetLike,
 }

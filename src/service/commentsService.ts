@@ -1,5 +1,5 @@
 import { CommentData, commentsRepository } from "../repositories/commentsRepository.js"
-import { likesRepository } from "../repositories/likesRepository.js"
+import { userRepository } from "../repositories/userRepository.js"
 
 interface CommentInfos {
     userId: number,
@@ -9,7 +9,7 @@ interface CommentInfos {
 
 
 async function postComment(body: CommentInfos) {
-    const respo = await likesRepository.findUser(body.userId)
+    const respo = await userRepository.findUser(body.userId)
 
     const respo2 = await commentsRepository.insertComment({...body, username: respo.username})
     return respo2

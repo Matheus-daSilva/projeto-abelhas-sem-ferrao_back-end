@@ -15,15 +15,12 @@ model User {
   username  String   @unique
   email     String   @unique
   password  String
-  photo     String
   admin     Boolean  @default(false)
   createdAt DateTime @default(now())
-
   sessions     Session[]
   publications Publication[]
   comments     Comment[]
   likes        Like[]
-
   @@map("users")
 }
 
@@ -32,9 +29,7 @@ model Session {
   token     String
   userId    Int
   accessedAt DateTime @default(now())
-
   user User @relation(fields: [userId], references: [id])
-
   @@map("sessions")
 }
 
@@ -44,12 +39,9 @@ model Publication {
   userId      Int
   description String
   createdAt   DateTime @default(now())
-
   comments Comment[]
   likes    Like[]
-
   user User @relation(fields: [userId], references: [id])
-
   @@map("publications")
 }
 
@@ -60,10 +52,8 @@ model Comment {
   comment       String
   username      String
   createdAt     DateTime @default(now())
-
   publications Publication @relation(fields: [publicationId], references: [id])
   user         User        @relation(fields: [userId], references: [id])
-
   @@map("comments")
 }
 
@@ -73,9 +63,7 @@ model Like {
   userId        Int
   username      String
   createdAt     DateTime @default(now())
-
   publications Publication @relation(fields: [publicationId], references: [id])
   user         User        @relation(fields: [userId], references: [id])
-
   @@map("likes")
 }
