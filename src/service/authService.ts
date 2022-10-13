@@ -38,7 +38,7 @@ async function signIn(body: Login) {
 
     await authRepository.createAccess(token, userId)
 
-    return token
+    return {token, userId}
 }
 
 export const authService = {

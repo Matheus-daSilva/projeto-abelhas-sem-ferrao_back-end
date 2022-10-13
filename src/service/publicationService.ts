@@ -1,4 +1,5 @@
 import { PublicationData, publicationRepository } from "../repositories/publicationRepository.js"
+import { userRepository } from "../repositories/userRepository.js"
 
 async function postPublication(body: PublicationData) {
 
@@ -8,7 +9,18 @@ async function postPublication(body: PublicationData) {
 }
 
 async function getPublications(){
-    const respo = await publicationRepository.getAllPublications()
+    const publications = await publicationRepository.getAllPublications()
+    const respo = []
+
+    for (let publication of publications) {
+        try {
+            const user = await userRepository.findUser(publication.userId)
+            respo.push({...publication, username: user.username})
+        } catch {
+            respo.push({...publication, username: "Undefined"})
+        }
+    }
+
     return respo
 }
 

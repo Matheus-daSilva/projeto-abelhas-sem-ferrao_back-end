@@ -25,7 +25,6 @@ async function getAllPublications() {
     return await prisma.publication.findMany({
         select: {
             id: true,
-            url: true,
             userId: true,
             description: true,
             likes: {select: {

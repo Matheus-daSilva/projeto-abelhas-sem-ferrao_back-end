@@ -35,7 +35,6 @@ model Session {
 
 model Publication {
   id          Int      @id @default(autoincrement())
-  url         String?
   userId      Int
   description String
   createdAt   DateTime @default(now())

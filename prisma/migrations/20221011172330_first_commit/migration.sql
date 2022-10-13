@@ -23,7 +23,6 @@ CREATE TABLE "sessions" (
 -- CreateTable
 CREATE TABLE "publications" (
     "id" SERIAL NOT NULL,
-    "url" TEXT,
     "userId" INTEGER NOT NULL,
     "description" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
