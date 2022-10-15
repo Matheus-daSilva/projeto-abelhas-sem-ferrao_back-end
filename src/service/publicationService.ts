@@ -15,9 +15,9 @@ async function getPublications(){
     for (let publication of publications) {
         try {
             const user = await userRepository.findUser(publication.userId)
-            respo.push({...publication, username: user.username})
+            respo.unshift({...publication, username: user.username})
         } catch {
-            respo.push({...publication, username: "Undefined"})
+            respo.unshift({...publication, username: "Undefined"})
         }
     }
 

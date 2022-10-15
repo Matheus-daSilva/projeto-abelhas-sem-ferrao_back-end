@@ -25,6 +25,18 @@ async function addLike(publicationId: number, userId: number) {
     }
 }
 
+async function findLike(publicationId: number, userId: number) {
+    console.log(publicationId, userId)
+    const respo = await checkLike(publicationId, userId)
+
+    if(respo) {
+        return true
+    }else {
+        return false
+    }
+}
+
 export const likesService = {
     addLike,
+    findLike
 }
