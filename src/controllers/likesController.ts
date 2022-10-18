@@ -9,7 +9,9 @@ async function LikePublication(req: Request, res: Response) {
 
 async function FindLike(req: Request, res: Response) {
     const { publicationId, userId } = req.body
+    console.log(req.body)
     const respo = await likesService.findLike(Number(publicationId), Number(userId))
+    console.log(respo)
     return res.status(200).send(respo)
 }
 
