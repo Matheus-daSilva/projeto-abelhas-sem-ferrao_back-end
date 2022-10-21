@@ -5,7 +5,12 @@ import router from "./routes/router.js"
 import { errorHandler } from "./middlewares/errorHandlerMiddleware.js"
 
 const app = express()
-app.use(cors())
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*")
+    res.header("Access-Control-Allow-Methods", 'GET,PUT,POST,DELETE')
+    app.use(cors())
+    next()
+});
 app.use(json())
 app.use(router)
 app.use(errorHandler)
